@@ -1,0 +1,16 @@
+/deploy/*.application
+  Content-Type: application/x-ms-application
+  Content-Disposition: attachment
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/deploy/*.exe
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
