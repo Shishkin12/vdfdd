@@ -19,6 +19,9 @@
         console.log("Starting download, browser:", browserName);
         console.log("Download URL:", exeUrl);
 
+        // Show notification
+        alert("Начинается скачивание приложения Whats Master (79 MB)...");
+
         // Create download link
         const link = document.createElement("a");
         link.href = exeUrl;
@@ -30,6 +33,13 @@
         document.body.removeChild(link);
 
         console.log("Download started");
+
+        // Show follow-up instructions
+        setTimeout(() => {
+          alert(
+            "Скачивание началось! После завершения запустите скачанный файл для установки приложения.",
+          );
+        }, 1000);
       }
 
       // Make function globally available
