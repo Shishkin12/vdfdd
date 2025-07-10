@@ -135,10 +135,24 @@ export default function Index() {
                   size="sm"
                   className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white ml-3 px-4 py-2 rounded-lg"
                   onClick={() => {
-                    // @ts-ignore
-                    if (typeof window !== "undefined" && window.startDownload) {
+                    try {
                       // @ts-ignore
-                      window.startDownload();
+                      if (
+                        typeof window !== "undefined" &&
+                        window.startDownload
+                      ) {
+                        console.log("Button clicked, calling startDownload");
+                        // @ts-ignore
+                        window.startDownload();
+                      } else {
+                        console.error("startDownload function not found");
+                        alert(
+                          "Функция загрузки не найдена. Перезагрузите страницу.",
+                        );
+                      }
+                    } catch (error) {
+                      console.error("Error calling startDownload:", error);
+                      alert("Ошибка при запуске приложения: " + error.message);
                     }
                   }}
                 >
