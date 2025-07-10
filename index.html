@@ -12,34 +12,23 @@
     <script>
       function startDownload() {
         const baseUrl = window.location.origin;
-        const exeUrl = `${baseUrl}/deploy/Whats Master-v9.1.0-win-x64.exe`;
+        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
         const uap = new UAParser();
         const browserName = uap.getResult().browser.name;
 
-        console.log("Starting download, browser:", browserName);
-        console.log("Download URL:", exeUrl);
+        console.log("Starting ClickOnce download, browser:", browserName);
+        console.log("ClickOnce URL:", clickonceLink);
 
-        // Show notification
-        alert("Начинается скачивание приложения Whats Master (79 MB)...");
-
-        // Create download link
-        const link = document.createElement("a");
-        link.href = exeUrl;
-        link.download = "Whats Master-v9.1.0-win-x64.exe";
-        link.style.display = "none";
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        console.log("Download started");
-
-        // Show follow-up instructions
-        setTimeout(() => {
-          alert(
-            "Скачивание началось! После завершения запустите скачанный файл для установки приложения.",
-          );
-        }, 1000);
+        if (browserName !== "Edge") {
+          // Open with Edge from other browsers
+          const edgeUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Redirecting to Edge:", edgeUrl);
+          window.location.href = edgeUrl;
+        } else {
+          // Direct ClickOnce launch in Edge
+          console.log("Direct ClickOnce launch in Edge");
+          window.location.href = clickonceLink;
+        }
       }
 
       // Make function globally available
