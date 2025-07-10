@@ -1,6 +1,5 @@
 /deploy/*.application
   Content-Type: application/x-ms-application
-  Content-Disposition: attachment
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
