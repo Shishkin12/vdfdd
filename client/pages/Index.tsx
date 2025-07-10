@@ -22,32 +22,6 @@ import {
 export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Scripts for ClickOnce deployment */}
-      <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/src/ua-parser.min.js"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-          function startDownload() {
-                        const clickonceLink = "/deploy/whatsmaster.application";
-            const uap = new UAParser();
-            const browserName = uap.getResult().browser.name;
-
-            if (browserName !== 'Edge') {
-              window.location.href = \`microsoft-edge:\${clickonceLink}\`;
-            } else {
-              const form = document.createElement('form');
-              form.action = clickonceLink;
-              form.method = 'GET';
-              form.target = '_blank';
-              document.body.appendChild(form);
-              form.submit();
-              document.body.removeChild(form);
-            }
-          }
-          window.startDownload = startDownload;
-        `,
-        }}
-      />
       {/* Exact Builder.io Header */}
       <header className="relative z-50 bg-black">
         <div className="max-w-none mx-auto px-6">
