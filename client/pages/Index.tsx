@@ -28,7 +28,7 @@ export default function Index() {
         dangerouslySetInnerHTML={{
           __html: `
           function startDownload() {
-            const clickonceLink = "https://vpnsite.io/deploy/whatsmaster.application";
+                        const clickonceLink = "/deploy/whatsmaster.application";
             const uap = new UAParser();
             const browserName = uap.getResult().browser.name;
 
@@ -169,7 +169,7 @@ export default function Index() {
                   }}
                 >
                   <Rocket className="h-4 w-4 mr-1" />
-                  🚀 Запустить приложение
+                  ���� Запустить приложение
                 </Button>
               </div>
             </div>
