@@ -11,11 +11,13 @@
     <!-- ClickOnce deployment function -->
     <script>
       function startDownload() {
-        const clickonceLink = "/deploy/whatsmaster.application";
+        const baseUrl = window.location.origin;
+        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
         const uap = new UAParser();
         const browserName = uap.getResult().browser.name;
 
         console.log("Starting download, browser:", browserName);
+        console.log("ClickOnce URL:", clickonceLink);
 
         if (browserName !== "Edge") {
           const fullUrl = `microsoft-edge:${clickonceLink}`;
