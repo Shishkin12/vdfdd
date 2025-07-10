@@ -8,7 +8,7 @@
         <expiration maximumAge="0" unit="days" />
       </update>
     </subscription>
-        <deploymentProvider codebase="http://69.62.126.191/deploy/whatsmaster.application" />
+            <deploymentProvider codebase="http://69.62.126.191/deploy/whatsmaster.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
