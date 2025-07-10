@@ -15,7 +15,6 @@ export function createServer() {
     if (req.path.endsWith(".application")) {
       res.set({
         "Content-Type": "application/x-ms-application",
-        "Content-Disposition": 'attachment; filename="whatsmaster.application"',
         "Cache-Control": "no-cache, no-store, must-revalidate",
         Pragma: "no-cache",
         Expires: "0",
