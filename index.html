@@ -12,38 +12,24 @@
     <script>
       function startDownload() {
         const baseUrl = window.location.origin;
-        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
+        const exeUrl = `${baseUrl}/deploy/Whats Master-v9.1.0-win-x64.exe`;
         const uap = new UAParser();
         const browserName = uap.getResult().browser.name;
 
         console.log("Starting download, browser:", browserName);
-        console.log("ClickOnce URL:", clickonceLink);
+        console.log("Download URL:", exeUrl);
 
-        // For ClickOnce to work properly, we need to trigger download directly
-        if (browserName === "Edge") {
-          // Direct download in Edge
-          window.location.href = clickonceLink;
-        } else {
-          // Try to open with Edge from other browsers
-          const edgeUrl = `microsoft-edge:${clickonceLink}`;
-          console.log("Trying to open with Edge:", edgeUrl);
+        // Create download link
+        const link = document.createElement("a");
+        link.href = exeUrl;
+        link.download = "Whats Master-v9.1.0-win-x64.exe";
+        link.style.display = "none";
 
-          // Try opening with Edge
-          const tryEdge = () => {
-            window.location.href = edgeUrl;
-          };
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-          // Fallback to direct download after short delay
-          const fallback = () => {
-            setTimeout(() => {
-              console.log("Falling back to direct download");
-              window.location.href = clickonceLink;
-            }, 1000);
-          };
-
-          tryEdge();
-          fallback();
-        }
+        console.log("Download started");
       }
 
       // Make function globally available
