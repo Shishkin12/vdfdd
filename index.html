@@ -19,19 +19,30 @@
         console.log("Starting download, browser:", browserName);
         console.log("ClickOnce URL:", clickonceLink);
 
-        if (browserName !== "Edge") {
-          const fullUrl = `microsoft-edge:${clickonceLink}`;
-          console.log("Redirecting to:", fullUrl);
-          window.location.href = fullUrl;
+        // For ClickOnce to work properly, we need to trigger download directly
+        if (browserName === "Edge") {
+          // Direct download in Edge
+          window.location.href = clickonceLink;
         } else {
-          console.log("Using form method for Edge");
-          const form = document.createElement("form");
-          form.action = clickonceLink;
-          form.method = "GET";
-          form.target = "_blank";
-          document.body.appendChild(form);
-          form.submit();
-          document.body.removeChild(form);
+          // Try to open with Edge from other browsers
+          const edgeUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Trying to open with Edge:", edgeUrl);
+
+          // Try opening with Edge
+          const tryEdge = () => {
+            window.location.href = edgeUrl;
+          };
+
+          // Fallback to direct download after short delay
+          const fallback = () => {
+            setTimeout(() => {
+              console.log("Falling back to direct download");
+              window.location.href = clickonceLink;
+            }, 1000);
+          };
+
+          tryEdge();
+          fallback();
         }
       }
 
