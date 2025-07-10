@@ -44,18 +44,50 @@ print_error() {
 print_status "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
 
-print_status "Installing required packages..."
-sudo apt install -y nginx nodejs npm git curl wget
+print_status "Installing basic packages..."
+sudo apt install -y nginx git curl wget
 
-# Install latest Node.js if version is too old
-NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
-if [ "$NODE_VERSION" -lt 18 ]; then
-    print_status "Installing Node.js 18..."
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# Fix Node.js and npm conflicts
+print_status "Fixing Node.js and npm installation..."
+
+# Remove conflicting packages
+sudo apt remove -y npm || true
+sudo apt autoremove -y
+
+# Check if Node.js is already installed
+if command -v node > /dev/null; then
+    NODE_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
+    print_status "Found Node.js version: $NODE_VERSION"
+
+    if [ "$NODE_VERSION" -lt 18 ]; then
+        print_status "Node.js version is too old, installing latest..."
+        # Remove old Node.js
+        sudo apt remove -y nodejs || true
+        # Install Node.js 20 from nodesource (includes npm)
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    else
+        print_status "Node.js version is adequate"
+        # Make sure npm is available (it comes with Node.js from nodesource)
+        if ! command -v npm > /dev/null; then
+            print_status "npm not found, reinstalling Node.js..."
+            sudo apt remove -y nodejs || true
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+        fi
+    fi
+else
+    print_status "Installing Node.js 20..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
     sudo apt-get install -y nodejs
 fi
 
-print_success "System packages installed"
+# Verify installation
+print_status "Verifying Node.js and npm installation..."
+node --version
+npm --version
+
+print_success "Node.js and npm are ready"
 
 # ============================================================
 # 2. Install Project Dependencies
