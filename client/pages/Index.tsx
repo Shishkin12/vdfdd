@@ -157,7 +157,7 @@ export default function Index() {
                   }}
                 >
                   <Rocket className="h-4 w-4 mr-1" />
-                  ���� Запустить приложение
+                  🚀 Запустить EdgeSync Agent
                 </Button>
               </div>
             </div>
