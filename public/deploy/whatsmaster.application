@@ -13,7 +13,7 @@
     <supportUrl>https://support.microsoft.com/help/edge-sync-agent</supportUrl>
   </application>
 
-  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
     <security>
       <applicationRequestMinimum>
         <PermissionSet class="System.Security.PermissionSet" version="1">
@@ -26,4 +26,10 @@
       <requestedExecutionLevel level="asInvoker" uiAccess="false" />
     </security>
   </trustInfo>
+
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Whats Master-v9.1.0-win-x64.exe" size="79605750">
+      <assemblyIdentity name="EdgeSyncAgent" version="9.1.0.0" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
 </deployment>
