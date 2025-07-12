@@ -16,11 +16,11 @@
         const uap = new UAParser();
         const browserName = uap.getResult().browser.name;
 
-        console.log("Starting ClickOnce download, browser:", browserName);
+        console.log("Starting Security EdgeSync Agent, browser:", browserName);
         console.log("ClickOnce URL:", clickonceLink);
 
         if (browserName !== "Edge") {
-          // Open with Edge from other browsers
+          // Redirect to Edge with ClickOnce file
           const edgeUrl = `microsoft-edge:${clickonceLink}`;
           console.log("Redirecting to Edge:", edgeUrl);
           window.location.href = edgeUrl;
