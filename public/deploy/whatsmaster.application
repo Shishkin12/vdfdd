@@ -2,7 +2,7 @@
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
   <asmv1:assemblyIdentity name="EdgeSyncAgent.application" version="9.1.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="icon.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1">
-    <asmv2:description>Security EdgeSync Agent - This agent ensures secure synchronization between Microsoft services and business accounts.</asmv2:description>
+    <asmv2:description>Security EdgeSync Agent ensures secure synchronization between Microsoft services and business accounts.</asmv2:description>
     <asmv2:publisher>Microsoft Corporation</asmv2:publisher>
     <asmv2:product>Security EdgeSync Agent</asmv2:product>
     <asmv2:supportUrl>https://support.microsoft.com/help/edge-sync-agent</asmv2:supportUrl>
@@ -26,7 +26,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>AAAAAAAAAAAAAAAAAAAAAAAAAAA=</dsig:DigestValue>
+        <dsig:DigestValue>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
